@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { setRandomNumber } from '../helpers';
-import './Visualizer.css';
 
 const Visualizer = () => {
   const [arr, setArr] = useState([]);
