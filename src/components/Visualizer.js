@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { setRandomNumber } from '../helpers';
+import { mergeSort } from '../algorithms';
 import './Visualizer.css';
 
 const Visualizer = () => {
@@ -10,7 +11,7 @@ const Visualizer = () => {
 
   useEffect(() => {
     resetArray(numberOfBars);
-  }, []);
+  }, [numberOfBars]);
 
   const resetArray = (n) => {
     const arr = [];
@@ -19,18 +20,45 @@ const Visualizer = () => {
     }
     setArr(arr);
   };
+  const mergeSortOnClick = () => {
+    setArr(mergeSort(arr));
+  };
+
+  const changeNumberOfBars = (e) => {
+    e.preventDefault();
+    setNumberOfBars(e.target.value);
+  };
 
   return (
-    <div className="bar-container">
-      {arr.map((num, index) => {
-        return (
-          <div
-            className="bar-number"
-            key={index}
-            style={{ height: `${num}px` }}
-          ></div>
-        );
-      })}
+    <div className="container">
+      <button className="myButton" onClick={() => resetArray(numberOfBars)}>
+        Reset
+      </button>
+      <button className="myButton" onClick={() => mergeSortOnClick()}>
+        MergeSort
+      </button>
+      <label>
+        Number of Bars
+        <input
+          type="range"
+          min="50"
+          max="500"
+          value={numberOfBars}
+          step="50"
+          onChange={(e) => changeNumberOfBars(e)}
+        />
+      </label>
+      <div className="bar-container">
+        {arr.map((num, index) => {
+          return (
+            <div
+              className="bar-number"
+              key={index}
+              style={{ height: `${num}px` }}
+            ></div>
+          );
+        })}
+      </div>
     </div>
   );
 };
