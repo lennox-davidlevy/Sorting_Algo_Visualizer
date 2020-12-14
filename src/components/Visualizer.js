@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { setRandomNumber } from '../helpers';
+import './Visualizer.css';
 
 const Visualizer = () => {
   const [arr, setArr] = useState([]);
@@ -23,9 +24,11 @@ const Visualizer = () => {
     <div className="bar-container">
       {arr.map((num, index) => {
         return (
-          <div className="bar-number" key={index}>
-            {num}
-          </div>
+          <div
+            className="bar-number"
+            key={index}
+            style={{ height: `${num}px` }}
+          ></div>
         );
       })}
     </div>

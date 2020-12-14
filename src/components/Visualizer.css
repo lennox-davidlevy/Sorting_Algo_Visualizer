@@ -1,0 +1,33 @@
+.bar-container {
+  position: relative;
+  padding: 0 3rem 0 3rem;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.bar-number {
+  align-self: flex-end;
+  flex-grow: 4;
+  width: 4px;
+  background-color: slategray;
+  display: inline-block;
+  margin: 0 1px;
+  z-index: 1;
+}
+
+.bar-number:hover {
+  background-color: lightblue;
+}
+
+/* FOR LATER */
+/* .num-hide {
+  visibility: hidden;
+  color: lightblue;
+  transition: opacity 0.2s, visibility 0.2s;
+  z-index: 2;
+}
+.bar-number:hover .num-hide {
+  visibility: visible;
+} */
