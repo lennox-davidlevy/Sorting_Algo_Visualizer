@@ -1,7 +1,7 @@
-import { returnAnimationArray, bubbleSort } from '../algorithms';
+import { mergeSort, bubbleSort } from '../algorithms';
 
 const animateMergeSortOnClick = (arr) => {
-  const animations = returnAnimationArray(arr);
+  const animations = mergeSort(arr);
   for (let i = 0; i < animations.length; i++) {
     const numBars = document.getElementsByClassName('bar-number');
     const changeColor = i % 3 !== 2;
