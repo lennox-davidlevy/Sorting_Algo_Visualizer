@@ -21,7 +21,7 @@ label {
   flex-direction: row;
   justify-content: center;
   height: 60vh;
-  min-width: 850px;
+  min-width: 500px;
 }
 
 .bar-number {
