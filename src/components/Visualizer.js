@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { setRandomNumber } from '../helpers';
-import { mergeSort, returnAnimationArray } from '../algorithms';
+import { mergeSort } from '../algorithms';
+import { animateMergeSortOnClick } from './mergeSort';
+import Buttons from './Buttons';
+import Bars from './Bars';
 import './Visualizer.css';
 
 const Visualizer = () => {
@@ -46,42 +49,16 @@ const Visualizer = () => {
     setSpeed(e.target.value);
   };
 
-  const animateMergeSortOnClick = () => {
-    const animations = returnAnimationArray(arr);
-    for (let i = 0; i < animations.length; i++) {
-      const numBars = document.getElementsByClassName('bar-number');
-      const changeColor = i % 3 !== 2;
-      if (changeColor) {
-        const [firstBar, secondBar] = animations[i];
-        const firstBarStyle = numBars[firstBar].style;
-        const secondBarStyle = numBars[secondBar].style;
-        const color = i % 3 === 0 ? 'red' : 'whitesmoke';
-        setTimeout(() => {
-          firstBarStyle.backgroundColor = color;
-          secondBarStyle.backgroundColor = color;
-        }, i * 10);
-      } else {
-        setTimeout(() => {
-          let [firstBar, newHeight] = animations[i];
-          const firstBarStyle = numBars[firstBar].style;
-          newHeight = (newHeight / 1000) * 100;
-          firstBarStyle.height = `${newHeight}%`;
-        }, i * 10);
-      }
-    }
-  };
-
   return (
     <div className="container">
-      <button className="myButton" onClick={() => resetOnClick(numberOfBars)}>
-        Reset
-      </button>
-      <button className="myButton" onClick={() => mergeSortOnClick()}>
-        MergeSort
-      </button>
-      <button className="myButton" onClick={() => animateMergeSortOnClick()}>
-        Animate MergeSort
-      </button>
+      <Buttons clickHandler={resetOnClick} title="Reset" />
+      <Buttons clickHandler={mergeSortOnClick} title="MergeSort" />
+      <Buttons
+        clickHandler={animateMergeSortOnClick}
+        title="AnimateMergeSort"
+        props={arr}
+      />
+
       <label>
         Bars: {numberOfBars}
         <input
@@ -104,19 +81,7 @@ const Visualizer = () => {
           onChange={(e) => changeSpeed(e)}
         />
       </label>
-      <div className="bar-container">
-        {arr.map((num, index) => {
-          const percentage = (num / 1000) * 100;
-
-          return (
-            <div
-              className="bar-number"
-              key={index}
-              style={{ height: `${percentage}%` }}
-            ></div>
-          );
-        })}
-      </div>
+      <Bars arr={arr} />
     </div>
   );
 };
