@@ -2,24 +2,35 @@ input,
 label {
   display: block;
 }
+body {
+  background-color: black;
+}
+h1 {
+  color: whitesmoke;
+}
+label {
+  color: whitesmoke;
+}
 
 .bar-container {
   position: relative;
+  margin-top: 10vh;
   padding: 0 3rem 0 3rem;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  height: 60vh;
+  min-width: 850px;
 }
 
 .bar-number {
   align-self: flex-end;
   flex-grow: 4;
   width: 4px;
-  background-color: slategray;
+  background-color: whitesmoke;
   display: inline-block;
   margin: 0 1px;
-  z-index: 1;
 }
 
 .bar-number:hover {
