@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { setRandomNumber } from '../helpers';
-import { mergeSort } from '../algorithms';
-import { animateMergeSortOnClick } from './mergeSort';
+import { mergeSort, bubbleSort } from '../algorithms';
+import {
+  animateMergeSortOnClick,
+  animateBubbleSortOnClick,
+} from './algoAnimation';
 import Buttons from './Buttons';
 import Bars from './Bars';
 import './Visualizer.css';
@@ -52,14 +55,19 @@ const Visualizer = () => {
   return (
     <div className="container">
       <Buttons clickHandler={resetOnClick} title="Reset" />
-      <Buttons clickHandler={mergeSortOnClick} title="MergeSort" />
+      {/* <Buttons clickHandler={mergeSortOnClick} title="MergeSort" /> */}
       <Buttons
         clickHandler={animateMergeSortOnClick}
         title="AnimateMergeSort"
         props={arr}
       />
+      <Buttons
+        clickHandler={animateBubbleSortOnClick}
+        title="BubbleSort"
+        props={arr}
+      />
 
-      <label>
+      {/* <label>
         Bars: {numberOfBars}
         <input
           type="range"
@@ -80,7 +88,7 @@ const Visualizer = () => {
           step="1"
           onChange={(e) => changeSpeed(e)}
         />
-      </label>
+      </label> */}
       <Bars arr={arr} />
     </div>
   );
