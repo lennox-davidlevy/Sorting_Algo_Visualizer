@@ -1,31 +1,39 @@
-const bubbleSort = (arr, steps, color) => {
-  const colorKey = [...color[color.length - 1]];
-  for (let i = 0; i < arr.length; i++) {
+const bubbleSort = (arr, steps, colors) => {
+  // let arr = a.slice(),
+  //   steps = s.slice(),
+  //   colors = c.slice();
+
+  let colorState = colors[colors.length - 1].slice();
+
+  for (let i = 0; i < arr.length - 1; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {
-      const a = arr[j];
-      const b = arr[j + 1];
-      if (a > b) {
-        swap(arr, j, j + 1);
+      if (arr[j] > arr[j + 1]) {
+        arr = swap(arr, j, j + 1);
       }
-      steps.push([...arr]);
-      colorKey[j] = 1;
-      colorKey[j + 1] = 1;
-      color.push([...colorKey]);
-      colorKey[j] = 0;
-      colorKey[j + 1] = 0;
+      steps.push(arr.slice());
+      colorState[j] = 1;
+      colorState[j + 1] = 1;
+      colors.push(colorState.slice());
+      colorState[j] = 0;
+      colorState[j + 1] = 0;
     }
-    colorKey[arr.length - 1 - i] = 2;
+    colorState[arr.length - 1 - i] = 2;
     steps.push(arr.slice());
-    color.push(colorKey.slice());
+    colors.push(colorState.slice());
   }
-  return;
+  colors[colors.length - 1] = new Array(arr.length).fill(2);
+  // return {
+  //   arr: arr,
+  //   steps: steps,
+  //   colors: colors,
+  // };
 };
 
 const swap = (arr, a, b) => {
   const temp = arr[a];
   arr[a] = arr[b];
   arr[b] = temp;
-  return;
+  return arr;
 };
 
 export { bubbleSort };
