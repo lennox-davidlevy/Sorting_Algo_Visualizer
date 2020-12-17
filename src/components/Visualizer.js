@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { setRandomNumber } from '../helpers';
+import { bubbleSortOrRestart, createArray } from '../helpers';
 import { bubbleSort } from './bubbleSort';
 import Buttons from './Buttons';
 import Bars from './Bars';
@@ -7,12 +7,12 @@ import './Visualizer.css';
 
 const Visualizer = () => {
   const [arr, setArr] = useState([]);
-  const [numberOfBars, setNumberOfBars] = useState(50);
-  // const [speed, setSpeed] = useState(2);
+  const [numberOfBars, setNumberOfBars] = useState(40);
   const [steps, setSteps] = useState([]);
   const [stepPosition, setStepPosition] = useState(0);
   const [colors, setColors] = useState([]);
   const [animations, setAnimations] = useState([]);
+  const [algo, setAlgo] = useState('');
 
   useEffect(() => {
     resetArray(numberOfBars);
@@ -41,15 +41,17 @@ const Visualizer = () => {
 
   const resetArray = (n) => {
     clear();
-    const arr = [];
-    for (let i = 0; i < n; i++) {
-      arr.push(setRandomNumber(5, 1000));
-    }
+    setAlgo('');
+    const arr = createArray(n);
     setArr(arr);
     setStepPosition(0);
   };
 
-  const bubbleSortSteps = () => {
+  const bubbleSortAnimation = () => {
+    if (algo === 'bubbleSort') {
+      startAnimation();
+    }
+    setAlgo('bubbleSort');
     if (steps.length > 1) return;
     bubbleSort(arr, steps, colors);
     startAnimation();
@@ -60,40 +62,33 @@ const Visualizer = () => {
     setAnimations([]);
   };
 
-  const startAnimation = (n) => {
+  const startAnimation = () => {
     clear();
-    const test = [];
+    const arr = [];
     for (let i = 0; i < steps.length; i++) {
       let animation = setTimeout(() => {
         setStepPosition(i);
-      }, i * 10);
-      test.push(animation);
+      }, i * 7);
+      arr.push(animation);
     }
-    setAnimations(test);
+    setAnimations(arr);
   };
 
-  const startOrRestart = () => {
-    if (stepPosition > 0) {
-      return 'Restart';
-    } else {
-      return 'Start';
-    }
-  };
   return (
     <div className="container">
       <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
-      <Buttons clickHandler={bubbleSortSteps} title="bubblesorttest" />
+      <Buttons
+        clickHandler={bubbleSortAnimation}
+        title={bubbleSortOrRestart(algo)}
+      />
       <Buttons clickHandler={stepBack} title={<i className="arrow left"></i>} />
+      <Buttons clickHandler={clear} title="Pause" />
       <Buttons
         clickHandler={stepForward}
         title={<i className="arrow right"></i>}
       />
-      <Buttons
-        clickHandler={startAnimation}
-        title={startOrRestart()}
-        item={stepPosition}
-      />
       <Bars arr={steps[stepPosition]} colorStep={colors[stepPosition]} />
+      <button onClick={() => startAnimation(stepPosition)}>test</button>
     </div>
   );
 };
