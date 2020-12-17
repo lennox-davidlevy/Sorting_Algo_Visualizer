@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function Buttons({ clickHandler, title, props }) {
+export default function Buttons({ clickHandler, title, item }) {
   return (
-    <button className="myButton" onClick={() => clickHandler(props)}>
+    <button className="myButton" onClick={() => clickHandler(item)}>
       {title}
     </button>
   );

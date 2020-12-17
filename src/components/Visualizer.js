@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { setRandomNumber } from '../helpers';
-import { mergeSort, bubbleSort } from '../algorithms';
-import {
-  animateMergeSortOnClick,
-  animateBubbleSortOnClick,
-} from './algoAnimation';
+import { bubbleSort } from './bubbleSort';
 import Buttons from './Buttons';
 import Bars from './Bars';
 import './Visualizer.css';
@@ -12,84 +8,92 @@ import './Visualizer.css';
 const Visualizer = () => {
   const [arr, setArr] = useState([]);
   const [numberOfBars, setNumberOfBars] = useState(50);
-  const [speed, setSpeed] = useState(2);
+  // const [speed, setSpeed] = useState(2);
+  const [steps, setSteps] = useState([]);
+  const [stepPosition, setStepPosition] = useState(0);
+  const [colors, setColors] = useState([]);
+  const [animations, setAnimations] = useState([]);
 
   useEffect(() => {
     resetArray(numberOfBars);
   }, [numberOfBars]);
 
   useEffect(() => {
-    const bars = document.getElementsByClassName('bar-number');
-    for (let i = 0; i < bars.length; i++) {
-      const barStyle = bars[i].style;
-      barStyle.backgroundColor = 'white';
-    }
+    const temp = [[...arr]];
+    setSteps(temp);
   }, [arr]);
 
+  useEffect(() => {
+    const temp = new Array(arr.length).fill(0);
+    setColors([temp]);
+  }, [arr]);
+
+  const stepForward = () => {
+    if (stepPosition >= steps.length - 1) return;
+    clear();
+    setStepPosition(stepPosition + 1);
+  };
+  const stepBack = () => {
+    if (stepPosition <= 0) return;
+    clear();
+    setStepPosition(stepPosition - 1);
+  };
+
   const resetArray = (n) => {
+    clear();
     const arr = [];
     for (let i = 0; i < n; i++) {
       arr.push(setRandomNumber(5, 1000));
     }
     setArr(arr);
+    setStepPosition(0);
   };
 
-  const resetOnClick = () => {
-    window.location.reload(false);
+  const bubbleSortSteps = () => {
+    if (steps.length > 1) return;
+    bubbleSort(arr, steps, colors);
+    startAnimation();
   };
 
-  const mergeSortOnClick = () => {
-    setArr(mergeSort(arr));
+  const clear = () => {
+    animations.forEach((animation) => clearTimeout(animation));
+    setAnimations([]);
   };
 
-  const changeNumberOfBars = (e) => {
-    e.preventDefault();
-    setNumberOfBars(e.target.value);
+  const startAnimation = (n) => {
+    clear();
+    const test = [];
+    for (let i = 0; i < steps.length; i++) {
+      let animation = setTimeout(() => {
+        setStepPosition(i);
+      }, i * 10);
+      test.push(animation);
+    }
+    setAnimations(test);
   };
 
-  const changeSpeed = (e) => {
-    e.preventDefault();
-    setSpeed(e.target.value);
+  const startOrRestart = () => {
+    if (stepPosition > 0) {
+      return 'Restart';
+    } else {
+      return 'Start';
+    }
   };
-
   return (
     <div className="container">
-      <Buttons clickHandler={resetOnClick} title="Reset" />
-      {/* <Buttons clickHandler={mergeSortOnClick} title="MergeSort" /> */}
+      <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
+      <Buttons clickHandler={bubbleSortSteps} title="bubblesorttest" />
+      <Buttons clickHandler={stepBack} title={<i className="arrow left"></i>} />
       <Buttons
-        clickHandler={animateMergeSortOnClick}
-        title="AnimateMergeSort"
-        props={arr}
+        clickHandler={stepForward}
+        title={<i className="arrow right"></i>}
       />
       <Buttons
-        clickHandler={animateBubbleSortOnClick}
-        title="BubbleSort"
-        props={arr}
+        clickHandler={startAnimation}
+        title={startOrRestart()}
+        item={stepPosition}
       />
-
-      {/* <label>
-        Bars: {numberOfBars}
-        <input
-          type="range"
-          min="50"
-          max="350"
-          value={numberOfBars}
-          step="50"
-          onChange={(e) => changeNumberOfBars(e)}
-        />
-      </label>
-      <label>
-        Sorting Speed: {speed}
-        <input
-          type="range"
-          min="1"
-          max="3"
-          value={speed}
-          step="1"
-          onChange={(e) => changeSpeed(e)}
-        />
-      </label> */}
-      <Bars arr={arr} />
+      <Bars arr={steps[stepPosition]} colorStep={colors[stepPosition]} />
     </div>
   );
 };

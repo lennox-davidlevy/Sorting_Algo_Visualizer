@@ -1,16 +1,17 @@
 import React from 'react';
+import Bar from './Bar';
 
-export default function Bars({ arr }) {
+export default function Bars({ arr, colorStep }) {
+  if (!arr) return null;
+  const colorIdx = { 0: 'whitesmoke', 1: 'red', 2: 'lightblue' };
+
   return (
     <div className="bar-container">
       {arr.map((num, index) => {
-        const percentage = (num / 1000) * 100;
+        const height = (num / 1000) * 100;
+        const colorBar = colorIdx[colorStep[index]];
         return (
-          <div
-            className="bar-number"
-            key={index}
-            style={{ height: `${percentage}%` }}
-          ></div>
+          <Bar key={index} height={height} color={colorBar} index={index} />
         );
       })}
     </div>
