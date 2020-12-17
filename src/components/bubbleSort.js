@@ -1,8 +1,4 @@
 const bubbleSort = (arr, steps, colors) => {
-  // let arr = a.slice(),
-  //   steps = s.slice(),
-  //   colors = c.slice();
-
   let colorState = colors[colors.length - 1].slice();
 
   for (let i = 0; i < arr.length - 1; i++) {
@@ -21,12 +17,7 @@ const bubbleSort = (arr, steps, colors) => {
     steps.push(arr.slice());
     colors.push(colorState.slice());
   }
-  colors[colors.length - 1] = new Array(arr.length).fill(2);
-  // return {
-  //   arr: arr,
-  //   steps: steps,
-  //   colors: colors,
-  // };
+  colors[colors.length - 1] = new Array(arr.length).fill(3);
 };
 
 const swap = (arr, a, b) => {

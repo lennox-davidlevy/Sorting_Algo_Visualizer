@@ -3,7 +3,7 @@ import Bar from './Bar';
 
 export default function Bars({ arr, colorStep }) {
   if (!arr) return null;
-  const colorIdx = { 0: 'whitesmoke', 1: 'red', 2: 'lightblue' };
+  const colorIdx = { 0: 'whitesmoke', 1: 'red', 2: 'lightblue', 3: 'yellow' };
 
   return (
     <div className="bar-container">
