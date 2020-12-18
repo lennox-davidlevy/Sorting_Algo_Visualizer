@@ -1,4 +1,5 @@
-const bubbleSort = (arr, steps, colors) => {
+const bubbleSort = (array, steps, colors) => {
+  let arr = array.slice();
   let colorState = colors[colors.length - 1].slice();
 
   for (let i = 0; i < arr.length - 1; i++) {
