@@ -18,12 +18,26 @@ const startOrRestart = (stepPosition) => {
   }
 };
 
-const bubbleSortOrRestart = (algo) => {
-  if (algo === 'bubbleSort') {
-    return 'Restart';
+const bubbleSortOrLoading = (algo, stepSize, stepPosition) => {
+  if (algo === 'bubbleSort' && stepPosition !== stepSize - 1) {
+    return <i class="fa fa-spinner fa-spin"></i>;
   } else {
     return 'Bubble Sort';
   }
 };
 
-export { setRandomNumber, startOrRestart, bubbleSortOrRestart, createArray };
+const mergeSortOrLoading = (algo, stepSize, stepPosition) => {
+  if (algo === 'mergeSort' && stepPosition !== stepSize - 1) {
+    return <i class="fa fa-spinner fa-spin"></i>;
+  } else {
+    return 'Merge Sort';
+  }
+};
+
+export {
+  setRandomNumber,
+  startOrRestart,
+  bubbleSortOrLoading,
+  mergeSortOrLoading,
+  createArray,
+};
