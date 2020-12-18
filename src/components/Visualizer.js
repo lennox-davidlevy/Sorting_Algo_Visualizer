@@ -6,6 +6,7 @@ import {
 } from '../helpers';
 import { bubbleSort } from './bubbleSort';
 import { mergeSort } from './mergeSort';
+import selectionSort from './selectionSort';
 import Buttons from './Buttons';
 import Bars from './Bars';
 import './Visualizer.css';
@@ -59,13 +60,22 @@ const Visualizer = () => {
     setStepSize(1);
   };
 
+  const selectionSortAnimation = () => {
+    if (steps.length > 1) return;
+    clear();
+    setAlgo('selectionSort');
+    selectionSort(arr, steps, colors);
+    setStepSize(steps.length);
+    startAnimation('selectionSort');
+  };
+
   const bubbleSortAnimation = () => {
     if (steps.length > 1) return;
     clear();
     setAlgo('bubbleSort');
     bubbleSort(arr, steps, colors);
     setStepSize(steps.length);
-    startAnimation();
+    startAnimation('bubbleSort');
   };
 
   const mergeSortAnimation = () => {
@@ -83,7 +93,7 @@ const Visualizer = () => {
   };
 
   const startAnimation = (type) => {
-    let speed = type === 'mergeSort' ? 30 : 10;
+    let speed = type === 'bubbleSort' ? 30 : 30;
     clear();
     const arr = [];
     for (let i = 0; i < steps.length; i++) {
@@ -117,6 +127,7 @@ const Visualizer = () => {
         clickHandler={mergeSortAnimation}
         title={mergeSortOrLoading(algo, stepSize, stepPosition)}
       ></Buttons>
+      <Buttons clickHandler={selectionSortAnimation} title="selection sort" />
       <Buttons clickHandler={stepBack} title={<i className="arrow left"></i>} />
       <Buttons
         clickHandler={startAnimation}
