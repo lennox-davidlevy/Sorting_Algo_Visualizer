@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import {
-  bubbleSortOrLoading,
-  mergeSortOrLoading,
-  createArray,
-} from '../helpers';
+import React, { useEffect, useState, useRef } from 'react';
+import { createArray, playOrPause } from '../helpers';
 import { bubbleSort } from './bubbleSort';
 import { mergeSort } from './mergeSort';
 import selectionSort from './selectionSort';
 import Buttons from './Buttons';
 import Bars from './Bars';
+import DropDown from './DropDown';
 import './Visualizer.css';
 
 const Visualizer = () => {
@@ -16,28 +13,64 @@ const Visualizer = () => {
   const [numberOfBars, setNumberOfBars] = useState(40);
   const [steps, setSteps] = useState([]);
   const [stepPosition, setStepPosition] = useState(0);
-  const [stepSize, setStepSize] = useState(1);
   const [colors, setColors] = useState([]);
   const [animations, setAnimations] = useState([]);
+  const [selectAlgo, setSelectAlgo] = useState([]);
+  const [pause, setPause] = useState(false);
   const [algo, setAlgo] = useState('');
+  const stepRef = useRef(stepPosition);
+  stepRef.current = stepPosition;
 
   useEffect(() => {
+    console.log('first effect');
     resetArray(numberOfBars);
   }, [numberOfBars]);
 
   useEffect(() => {
-    const temp = [[...arr]];
-    setSteps(temp);
+    console.log('second effect');
+    stepSet();
+    colorSet();
   }, [arr]);
 
   useEffect(() => {
+    console.log('third effect');
+    setupAnimation(algo);
+  }, [algo]);
+
+  const colorSet = () => {
     const temp = new Array(arr.length).fill(0);
     setColors([temp]);
-  }, [arr]);
+  };
+  const stepSet = () => {
+    const temp = [[...arr]];
+    setSteps(temp);
+  };
 
   const changeNumberOfBars = (e) => {
-    e.preventDefault();
     setNumberOfBars(e.target.value);
+  };
+
+  const dropDownSelect = (e) => {
+    stepSet();
+    colorSet();
+    setAlgo(e.target.value);
+  };
+
+  const setupAnimation = (n) => {
+    console.log('setupAnimation ran', n);
+    switch (n) {
+      case 'Bubble Sort':
+        bubbleSortAnimation();
+        break;
+      case 'Merge Sort':
+        mergeSortAnimation();
+        break;
+      case 'Selection Sort':
+        selectionSortAnimation();
+        break;
+      default:
+        return;
+    }
   };
 
   const stepForward = () => {
@@ -53,38 +86,36 @@ const Visualizer = () => {
 
   const resetArray = (n) => {
     clear();
-    setAlgo('');
     const arr = createArray(n);
     setArr(arr);
     setStepPosition(0);
-    setStepSize(1);
+    setSelectAlgo(['Bubble Sort', 'Selection Sort', 'Merge Sort']);
+    setAlgo('');
+    const selector = document.getElementById('selector');
+    selector.value = '';
   };
 
-  const selectionSortAnimation = () => {
-    if (steps.length > 1) return;
+  const playOrPauseHandler = () => {
     clear();
-    setAlgo('selectionSort');
-    selectionSort(arr, steps, colors);
-    setStepSize(steps.length);
-    startAnimation('selectionSort');
+    startAnimation();
+    setPause(!pause);
+  };
+  const selectionSortAnimation = () => {
+    clear();
+    let a = arr.slice();
+    selectionSort(a, steps, colors);
   };
 
   const bubbleSortAnimation = () => {
-    if (steps.length > 1) return;
     clear();
-    setAlgo('bubbleSort');
-    bubbleSort(arr, steps, colors);
-    setStepSize(steps.length);
-    startAnimation('bubbleSort');
+    let a = arr.slice();
+    bubbleSort(a, steps, colors);
   };
 
   const mergeSortAnimation = () => {
-    if (steps.length > 1) return;
     clear();
-    setAlgo('mergeSort');
-    mergeSort(arr, 0, steps, colors);
-    setStepSize(steps.length);
-    startAnimation('mergeSort');
+    let a = arr.slice();
+    mergeSort(a, 0, steps, colors);
   };
 
   const clear = () => {
@@ -96,9 +127,9 @@ const Visualizer = () => {
     let speed = type === 'bubbleSort' ? 30 : 30;
     clear();
     const arr = [];
-    for (let i = 0; i < steps.length; i++) {
+    for (let i = 0; i < steps.length - stepPosition - 1; i++) {
       let animation = setTimeout(() => {
-        setStepPosition(i);
+        setStepPosition(stepRef.current + 1);
       }, i * speed);
       arr.push(animation);
     }
@@ -107,6 +138,8 @@ const Visualizer = () => {
 
   return (
     <div className="container">
+      <DropDown clickHandler={dropDownSelect} arr={selectAlgo} />
+
       <label>
         Bars: {numberOfBars}
         <input
@@ -119,19 +152,10 @@ const Visualizer = () => {
         />
       </label>
       <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
-      <Buttons
-        clickHandler={bubbleSortAnimation}
-        title={bubbleSortOrLoading(algo, stepSize, stepPosition)}
-      />
-      <Buttons
-        clickHandler={mergeSortAnimation}
-        title={mergeSortOrLoading(algo, stepSize, stepPosition)}
-      ></Buttons>
-      <Buttons clickHandler={selectionSortAnimation} title="selection sort" />
       <Buttons clickHandler={stepBack} title={<i className="arrow left"></i>} />
       <Buttons
         clickHandler={startAnimation}
-        title={<i className="fa fa-undo"></i>}
+        title={playOrPause(pause)}
         item={algo}
       />
       <Buttons

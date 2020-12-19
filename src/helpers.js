@@ -34,10 +34,23 @@ const mergeSortOrLoading = (algo, stepSize, stepPosition) => {
   }
 };
 
+const playOrPause = (pause) => {
+  return pause ? (
+    <i className="fa fa-pause" aria-hidden="true"></i>
+  ) : (
+    <i className="fa fa-play" aria-hidden="true"></i>
+  );
+};
+const algo_select = {
+  'Bubble Sort': 'bubbleSort',
+  'Selection Sort': 'selectionSort',
+  'Merge Sort': 'mergeSort',
+};
+
 export {
   setRandomNumber,
   startOrRestart,
-  bubbleSortOrLoading,
-  mergeSortOrLoading,
   createArray,
+  algo_select,
+  playOrPause,
 };
