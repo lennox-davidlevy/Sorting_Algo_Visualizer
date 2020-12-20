@@ -11,6 +11,7 @@ import selectionSort from './selectionSort';
 import Buttons from './Buttons';
 import Bars from './Bars';
 import DropDown from './DropDown';
+import Radio from './Radio';
 import './Visualizer.css';
 
 const Visualizer = () => {
@@ -59,6 +60,11 @@ const Visualizer = () => {
     setAlgo(e.target.value);
   };
 
+  const radioSelect = (e) => {
+    clear();
+    setSpeed(e.target.value);
+  };
+
   const setupAnimation = (algorithm) => {
     animationChoice(
       algorithm,
@@ -76,6 +82,11 @@ const Visualizer = () => {
     setStepPosition(stepPosition + 1);
   };
   const playOrPauseHandler = () => {
+    if (stepPosition === steps.length - 1 && steps.length !== 1) {
+      setStepPosition(0);
+      startAnimation();
+      return;
+    }
     animations.length > 0 ? clear() : startAnimation();
   };
   const stepBack = () => {
@@ -90,9 +101,10 @@ const Visualizer = () => {
     setArr(arr);
     setStepPosition(0);
     setSelectAlgo(['Selection Sort', 'Bubble Sort', 'Merge Sort']);
-    setAlgo('');
-    const selector = document.getElementById('selector');
-    selector.value = '';
+    // setAlgo('');
+    // setSpeed('medium');
+    // const selector = document.getElementById('selector');
+    // selector.value = '';
   };
 
   const selectionSortAnimation = () => {
@@ -118,7 +130,10 @@ const Visualizer = () => {
     setAnimations([]);
   };
 
-  const startAnimation = (type) => {
+  const startAnimation = () => {
+    if (steps.length === 1) {
+      setupAnimation(algo);
+    }
     const animationSpeed = sortingSpeed[algo][speed] || 30;
     console.log(`animationSpeed: ${animationSpeed}`);
     clear();
@@ -135,6 +150,7 @@ const Visualizer = () => {
   return (
     <div className="container">
       <DropDown clickHandler={dropDownSelect} arr={selectAlgo} />
+      <Radio clickHandler={radioSelect} speed={speed} />
 
       <label>
         <input
@@ -152,7 +168,7 @@ const Visualizer = () => {
       <Buttons clickHandler={stepBack} title={<i className="arrow left"></i>} />
       <Buttons
         clickHandler={playOrPauseHandler}
-        title={playOrPause(animations)}
+        title={playOrPause(animations, stepPosition, steps)}
         item={algo}
         disabled={algo === ''}
       />
