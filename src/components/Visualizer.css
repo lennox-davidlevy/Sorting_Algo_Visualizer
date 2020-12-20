@@ -22,6 +22,7 @@ label {
   justify-content: center;
   height: 60vh;
   min-width: 500px;
+  border-bottom: 2px solid#f9f9f9;
 }
 
 .bar-number {

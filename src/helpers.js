@@ -10,47 +10,56 @@ const createArray = (n) => {
   return arr;
 };
 
-const startOrRestart = (stepPosition) => {
-  if (stepPosition > 0) {
-    return 'Restart';
-  } else {
-    return 'Start';
-  }
-};
-
-const bubbleSortOrLoading = (algo, stepSize, stepPosition) => {
-  if (algo === 'bubbleSort' && stepPosition !== stepSize - 1) {
-    return <i class="fa fa-spinner fa-spin"></i>;
-  } else {
-    return 'Bubble Sort';
-  }
-};
-
-const mergeSortOrLoading = (algo, stepSize, stepPosition) => {
-  if (algo === 'mergeSort' && stepPosition !== stepSize - 1) {
-    return <i class="fa fa-spinner fa-spin"></i>;
-  } else {
-    return 'Merge Sort';
-  }
-};
-
-const playOrPause = (pause) => {
-  return pause ? (
+const playOrPause = (animations) => {
+  return animations.length > 0 ? (
     <i className="fa fa-pause" aria-hidden="true"></i>
   ) : (
     <i className="fa fa-play" aria-hidden="true"></i>
   );
 };
-const algo_select = {
-  'Bubble Sort': 'bubbleSort',
-  'Selection Sort': 'selectionSort',
-  'Merge Sort': 'mergeSort',
+
+const sortingSpeed = {
+  'Bubble Sort': {
+    slow: 30,
+    medium: 20,
+    fast: 10,
+  },
+  'Merge Sort': {
+    slow: 50,
+    medium: 30,
+    fast: 10,
+  },
+  'Selection Sort': {
+    slow: 40,
+    medium: 20,
+    fast: 10,
+  },
 };
 
+const animationChoice = (
+  algorithm,
+  bubbleSortAnimation,
+  mergeSortAnimation,
+  selectionSortAnimation
+) => {
+  switch (algorithm) {
+    case 'Bubble Sort':
+      bubbleSortAnimation();
+      break;
+    case 'Merge Sort':
+      mergeSortAnimation();
+      break;
+    case 'Selection Sort':
+      selectionSortAnimation();
+      break;
+    default:
+      return;
+  }
+};
 export {
   setRandomNumber,
-  startOrRestart,
   createArray,
-  algo_select,
   playOrPause,
+  sortingSpeed,
+  animationChoice,
 };
