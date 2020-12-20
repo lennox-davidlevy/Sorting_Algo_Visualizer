@@ -4,7 +4,7 @@ const DropDown = ({ arr, clickHandler }) => {
   if (!arr) return null;
   return (
     <div>
-      <select id="selector" onChange={(e) => clickHandler(e)}>
+      <select id="selector" onChange={clickHandler}>
         <option value="">Choose Algorithm</option>
         {arr.map((item, key) => {
           return (
