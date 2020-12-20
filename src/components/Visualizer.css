@@ -12,6 +12,8 @@ label {
   color: whitesmoke;
 }
 
+/* BARS */
+
 .bar-container {
   position: relative;
   margin-top: 10vh;
@@ -38,6 +40,42 @@ label {
   background-color: lightblue;
 }
 
+/* BAR NUMBER RANGE */
+
+#bar-range {
+  -webkit-appearance: none;
+  width: auto;
+  height: 10px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+#bar-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: whitesmoke;
+  cursor: pointer;
+}
+
+#bar-range::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+#bar-range:hover {
+  opacity: 1;
+}
+
 /* FOR LATER */
 /* .num-hide {
   visibility: hidden;
@@ -48,6 +86,8 @@ label {
 .bar-number:hover .num-hide {
   visibility: visible;
 } */
+
+/* BUTTONS */
 
 .myButton {
   box-shadow: inset 0px 1px 0px 0px #ffffff;

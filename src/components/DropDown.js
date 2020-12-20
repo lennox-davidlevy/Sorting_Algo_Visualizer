@@ -1,5 +1,4 @@
 import React from 'react';
-import { algo_select } from '../helpers';
 
 const DropDown = ({ arr, clickHandler }) => {
   if (!arr) return null;

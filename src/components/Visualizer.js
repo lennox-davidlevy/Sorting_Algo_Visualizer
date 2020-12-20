@@ -15,8 +15,9 @@ import './Visualizer.css';
 
 const Visualizer = () => {
   const [arr, setArr] = useState([]);
-  const [numberOfBars, setNumberOfBars] = useState(40);
+  const [numberOfBars, setNumberOfBars] = useState(30);
   const [steps, setSteps] = useState([]);
+  const [speed, setSpeed] = useState('medium');
   const [stepPosition, setStepPosition] = useState(0);
   const [colors, setColors] = useState([]);
   const [animations, setAnimations] = useState([]);
@@ -67,10 +68,15 @@ const Visualizer = () => {
     );
   };
 
+  //controls
+
   const stepForward = () => {
     if (stepPosition >= steps.length - 1) return;
     clear();
     setStepPosition(stepPosition + 1);
+  };
+  const playOrPauseHandler = () => {
+    animations.length > 0 ? clear() : startAnimation();
   };
   const stepBack = () => {
     if (stepPosition <= 0) return;
@@ -89,9 +95,6 @@ const Visualizer = () => {
     selector.value = '';
   };
 
-  const playOrPauseHandler = () => {
-    animations.length > 0 ? clear() : startAnimation();
-  };
   const selectionSortAnimation = () => {
     clear();
     let a = [...arr];
@@ -116,13 +119,14 @@ const Visualizer = () => {
   };
 
   const startAnimation = (type) => {
-    let speed = type === 'bubbleSort' ? 30 : 30;
+    const animationSpeed = sortingSpeed[algo][speed] || 30;
+    console.log(`animationSpeed: ${animationSpeed}`);
     clear();
     const arr = [];
     for (let i = 0; i < steps.length - stepPosition - 1; i++) {
       let animation = setTimeout(() => {
         setStepPosition(stepRef.current + 1);
-      }, i * speed);
+      }, i * animationSpeed);
       arr.push(animation);
     }
     setAnimations(arr);
@@ -133,8 +137,8 @@ const Visualizer = () => {
       <DropDown clickHandler={dropDownSelect} arr={selectAlgo} />
 
       <label>
-        Bars: {numberOfBars}
         <input
+          id="bar-range"
           type="range"
           min="10"
           max="50"
@@ -142,6 +146,7 @@ const Visualizer = () => {
           step="10"
           onChange={(e) => changeNumberOfBars(e)}
         />
+        Bars: {numberOfBars}
       </label>
       <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
       <Buttons clickHandler={stepBack} title={<i className="arrow left"></i>} />
@@ -149,6 +154,7 @@ const Visualizer = () => {
         clickHandler={playOrPauseHandler}
         title={playOrPause(animations)}
         item={algo}
+        disabled={algo === ''}
       />
       <Buttons
         clickHandler={stepForward}
