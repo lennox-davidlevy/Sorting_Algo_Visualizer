@@ -23,17 +23,17 @@ const playOrPause = (animations, stepPosition, steps) => {
 
 const sortingSpeed = {
   'Bubble Sort': {
-    slow: 30,
+    slow: 60,
     medium: 20,
     fast: 7,
   },
   'Merge Sort': {
-    slow: 50,
+    slow: 60,
     medium: 30,
     fast: 10,
   },
   'Selection Sort': {
-    slow: 40,
+    slow: 60,
     medium: 20,
     fast: 10,
   },

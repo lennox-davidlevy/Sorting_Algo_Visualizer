@@ -12,6 +12,7 @@ import Buttons from './Buttons';
 import Bars from './Bars';
 import DropDown from './DropDown';
 import Radio from './Radio';
+import Navbar from './NavBar';
 import './Visualizer.css';
 
 const Visualizer = () => {
@@ -54,6 +55,7 @@ const Visualizer = () => {
   };
 
   const dropDownSelect = (e) => {
+    // console.log(e.target);
     stepSet();
     colorSet();
     setStepPosition(0);
@@ -149,7 +151,16 @@ const Visualizer = () => {
 
   return (
     <div className="container">
-      <DropDown clickHandler={dropDownSelect} arr={selectAlgo} />
+      <Navbar
+        dropDownSelect={dropDownSelect}
+        selectAlgo={selectAlgo}
+        radioSelect={radioSelect}
+        speed={speed}
+        changeNumberOfBars={changeNumberOfBars}
+        numberOfBars={numberOfBars}
+        algo={algo}
+      />
+      {/* <DropDown clickHandler={dropDownSelect} arr={selectAlgo} />
       <Radio clickHandler={radioSelect} speed={speed} />
 
       <label>
@@ -163,19 +174,24 @@ const Visualizer = () => {
           onChange={(e) => changeNumberOfBars(e)}
         />
         Bars: {numberOfBars}
-      </label>
-      <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
-      <Buttons clickHandler={stepBack} title={<i className="arrow left"></i>} />
-      <Buttons
-        clickHandler={playOrPauseHandler}
-        title={playOrPause(animations, stepPosition, steps)}
-        item={algo}
-        disabled={algo === ''}
-      />
-      <Buttons
-        clickHandler={stepForward}
-        title={<i className="arrow right"></i>}
-      />
+      </label> */}
+      <div className="controls-container">
+        <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
+        <Buttons
+          clickHandler={stepBack}
+          title={<i className="arrow left"></i>}
+        />
+        <Buttons
+          clickHandler={playOrPauseHandler}
+          title={playOrPause(animations, stepPosition, steps)}
+          item={algo}
+          disabled={algo === ''}
+        />
+        <Buttons
+          clickHandler={stepForward}
+          title={<i className="arrow right"></i>}
+        />
+      </div>
       <Bars arr={steps[stepPosition]} colorStep={colors[stepPosition]} />
     </div>
   );
