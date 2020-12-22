@@ -1,33 +1,148 @@
+body {
+  background-color: black;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 900;
+}
+
+/* BARS */
+
 .bar-container {
   position: relative;
+  margin-top: 10vh;
   padding: 0 3rem 0 3rem;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: center;
+  height: 60vh;
+  min-width: 500px;
+  border-bottom: 2px solid#f9f9f9;
 }
 
 .bar-number {
   align-self: flex-end;
   flex-grow: 4;
   width: 4px;
-  background-color: slategray;
+  background-color: whitesmoke;
   display: inline-block;
   margin: 0 1px;
-  z-index: 1;
 }
 
 .bar-number:hover {
   background-color: lightblue;
 }
 
-/* FOR LATER */
-/* .num-hide {
-  visibility: hidden;
-  color: lightblue;
-  transition: opacity 0.2s, visibility 0.2s;
-  z-index: 2;
+/* BAR NUMBER RANGE */
+
+#bar-range {
+  -webkit-appearance: none;
+  width: auto;
+  height: 10px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.8;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
 }
-.bar-number:hover .num-hide {
-  visibility: visible;
-} */
+
+#bar-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: whitesmoke;
+  cursor: pointer;
+}
+
+#bar-range::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+#bar-range:hover {
+  opacity: 1;
+}
+
+/* RADIO */
+.radio-container {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+}
+
+.radio {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 30px;
+}
+
+/* BUTTONS */
+
+.controls-container {
+  text-align: center;
+}
+
+.myButton {
+  background-color: black;
+  border: 2px solid whitesmoke;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.myButton:hover {
+  background-color: whitesmoke;
+  color: black;
+}
+.myButton:hover .arrow {
+  border: solid black;
+}
+
+/* navbar */
+.navbar {
+  color: whitesmoke;
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 0 2rem 0 2rem;
+  font-size: larger;
+  text-align: center;
+  height: 5rem;
+  margin-top: 2rem;
+  max-width: 800px;
+  border-bottom: 4px solid whitesmoke;
+  margin-bottom: 20px;
+}
+.logoWrapper {
+  display: flex;
+}
+.stylish {
+  font-weight: bold;
+  color: whitesmoke;
+  font-size: 25px;
+}
+.logo {
+  padding-left: 4px;
+  color: #ea4f4c;
+  font-size: 25px;
+}
+.dropdown-nav {
+  max-width: 150px;
+  margin-left: 20px;
+  margin-top: 8px;
+}
+.speed-nav {
+  max-width: 200px;
+}
+.num-bar-nav {
+  max-width: 200px;
+}

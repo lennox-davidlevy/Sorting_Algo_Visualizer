@@ -1,36 +1,175 @@
-import React, { useEffect, useState } from 'react';
-import { setRandomNumber } from '../helpers';
+import React, { useEffect, useState, useRef } from 'react';
+import {
+  createArray,
+  playOrPause,
+  sortingSpeed,
+  animationChoice,
+} from '../helpers';
+import bubbleSort from '../algorithms/bubbleSort';
+import mergeSort from '../algorithms/mergeSort';
+import selectionSort from '../algorithms/selectionSort';
+import Buttons from './Buttons';
+import Bars from './Bars';
+import Navbar from './NavBar';
 import './Visualizer.css';
 
 const Visualizer = () => {
   const [arr, setArr] = useState([]);
-  const [min, setMin] = useState(5);
-  const [max, setMax] = useState(1000);
-  const [numberOfBars, setNumberOfBars] = useState(100);
+  const [numberOfBars, setNumberOfBars] = useState(30);
+  const [steps, setSteps] = useState([]);
+  const [speed, setSpeed] = useState('medium');
+  const [stepPosition, setStepPosition] = useState(0);
+  const [colors, setColors] = useState([]);
+  const [animations, setAnimations] = useState([]);
+  const [selectAlgo, setSelectAlgo] = useState([]);
+  const [algo, setAlgo] = useState('');
+  const stepRef = useRef(stepPosition);
+  stepRef.current = stepPosition;
 
   useEffect(() => {
     resetArray(numberOfBars);
-  }, []);
+  }, [numberOfBars]);
+
+  useEffect(() => {
+    stepSet();
+    colorSet();
+  }, [arr]);
+
+  useEffect(() => {
+    setupAnimation(algo);
+  }, [algo]);
+
+  const colorSet = () => {
+    const temp = new Array(arr.length).fill(0);
+    setColors([temp]);
+  };
+  const stepSet = () => {
+    const temp = [[...arr]];
+    setSteps(temp);
+  };
+
+  const changeNumberOfBars = (e) => {
+    setNumberOfBars(e.target.value);
+  };
+
+  const dropDownSelect = (selectedOptionValue) => {
+    stepSet();
+    colorSet();
+    setStepPosition(0);
+    setAlgo(selectedOptionValue);
+  };
+
+  const radioSelect = (e) => {
+    clear();
+    setSpeed(e.target.value);
+  };
+
+  const setupAnimation = (algorithm) => {
+    animationChoice(
+      algorithm,
+      bubbleSortAnimation,
+      mergeSortAnimation,
+      selectionSortAnimation
+    );
+  };
+
+  //controls
+
+  const stepForward = () => {
+    if (stepPosition >= steps.length - 1) return;
+    clear();
+    setStepPosition(stepPosition + 1);
+  };
+  const playOrPauseHandler = () => {
+    if (stepPosition === steps.length - 1 && steps.length !== 1) {
+      setStepPosition(0);
+      startAnimation();
+      return;
+    }
+    animations.length > 0 ? clear() : startAnimation();
+  };
+  const stepBack = () => {
+    if (stepPosition <= 0) return;
+    clear();
+    setStepPosition(stepPosition - 1);
+  };
 
   const resetArray = (n) => {
-    const arr = [];
-    for (let i = 0; i < n; i++) {
-      arr.push(setRandomNumber(min, max));
-    }
+    clear();
+    const arr = createArray(n);
     setArr(arr);
+    setStepPosition(0);
+    setSelectAlgo(['Selection Sort', 'Bubble Sort', 'Merge Sort']);
+  };
+
+  const selectionSortAnimation = () => {
+    clear();
+    let a = [...arr];
+    selectionSort(a, steps, colors);
+  };
+
+  const bubbleSortAnimation = () => {
+    clear();
+    let a = [...arr];
+    bubbleSort(a, steps, colors);
+  };
+
+  const mergeSortAnimation = () => {
+    clear();
+    let a = [...arr];
+    mergeSort(a, 0, steps, colors);
+  };
+
+  const clear = () => {
+    animations.forEach((animation) => clearTimeout(animation));
+    setAnimations([]);
+  };
+
+  const startAnimation = () => {
+    if (steps.length === 1) {
+      setupAnimation(algo);
+    }
+    const animationSpeed = sortingSpeed[algo][speed] || 30;
+    clear();
+    const arr = [];
+    for (let i = 0; i < steps.length - stepPosition - 1; i++) {
+      let animation = setTimeout(() => {
+        setStepPosition(stepRef.current + 1);
+      }, i * animationSpeed);
+      arr.push(animation);
+    }
+    setAnimations(arr);
   };
 
   return (
-    <div className="bar-container">
-      {arr.map((num, index) => {
-        return (
-          <div
-            className="bar-number"
-            key={index}
-            style={{ height: `${num}px` }}
-          ></div>
-        );
-      })}
+    <div className="container">
+      <Navbar
+        dropDownSelect={dropDownSelect}
+        selectAlgo={selectAlgo}
+        radioSelect={radioSelect}
+        speed={speed}
+        changeNumberOfBars={changeNumberOfBars}
+        numberOfBars={numberOfBars}
+        algo={algo}
+      />
+      <div className="controls-container">
+        <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
+        <Buttons
+          clickHandler={stepBack}
+          title={<i className="fa fa-chevron-left"></i>}
+        />
+        <Buttons
+          clickHandler={playOrPauseHandler}
+          title={playOrPause(animations, stepPosition, steps)}
+          item={algo}
+          disabled={algo === ''}
+        />
+        <Buttons
+          clickHandler={stepForward}
+          title={<i className="fa fa-chevron-right"></i>}
+        />
+      </div>
+      <Bars arr={steps[stepPosition]} colorStep={colors[stepPosition]} />
     </div>
   );
 };
