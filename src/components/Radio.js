@@ -1,20 +1,25 @@
 import React from 'react';
 const arr = ['slow', 'medium', 'fast'];
+const obj = {
+  slow: '>',
+  medium: '>>',
+  fast: '>>>',
+};
 const Radio = ({ clickHandler, speed }) => {
   return (
-    <div>
-      {arr.map((item) => {
+    <div className="radio-container">
+      {arr.map((item, key) => {
         return (
-          <label>
+          <label key={key} className="radio">
             <input
               type="radio"
               name="animationSpeed"
               value={item}
               checked={item == speed}
               onChange={clickHandler}
-              className="form-check-input"
+              key={key}
             />
-            {item}
+            {obj[item]}
           </label>
         );
       })}

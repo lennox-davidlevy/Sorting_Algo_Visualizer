@@ -12,6 +12,7 @@ import Buttons from './Buttons';
 import Bars from './Bars';
 import DropDown from './DropDown';
 import Radio from './Radio';
+import Navbar from './NavBar';
 import './Visualizer.css';
 
 const Visualizer = () => {
@@ -53,11 +54,12 @@ const Visualizer = () => {
     setNumberOfBars(e.target.value);
   };
 
-  const dropDownSelect = (e) => {
+  const dropDownSelect = (selectedOptionValue) => {
+    // console.log(e.target);
     stepSet();
     colorSet();
     setStepPosition(0);
-    setAlgo(e.target.value);
+    setAlgo(selectedOptionValue);
   };
 
   const radioSelect = (e) => {
@@ -101,10 +103,6 @@ const Visualizer = () => {
     setArr(arr);
     setStepPosition(0);
     setSelectAlgo(['Selection Sort', 'Bubble Sort', 'Merge Sort']);
-    // setAlgo('');
-    // setSpeed('medium');
-    // const selector = document.getElementById('selector');
-    // selector.value = '';
   };
 
   const selectionSortAnimation = () => {
@@ -149,33 +147,32 @@ const Visualizer = () => {
 
   return (
     <div className="container">
-      <DropDown clickHandler={dropDownSelect} arr={selectAlgo} />
-      <Radio clickHandler={radioSelect} speed={speed} />
-
-      <label>
-        <input
-          id="bar-range"
-          type="range"
-          min="10"
-          max="50"
-          value={numberOfBars}
-          step="10"
-          onChange={(e) => changeNumberOfBars(e)}
+      <Navbar
+        dropDownSelect={dropDownSelect}
+        selectAlgo={selectAlgo}
+        radioSelect={radioSelect}
+        speed={speed}
+        changeNumberOfBars={changeNumberOfBars}
+        numberOfBars={numberOfBars}
+        algo={algo}
+      />
+      <div className="controls-container">
+        <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
+        <Buttons
+          clickHandler={stepBack}
+          title={<i className="fa fa-chevron-left"></i>}
         />
-        Bars: {numberOfBars}
-      </label>
-      <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
-      <Buttons clickHandler={stepBack} title={<i className="arrow left"></i>} />
-      <Buttons
-        clickHandler={playOrPauseHandler}
-        title={playOrPause(animations, stepPosition, steps)}
-        item={algo}
-        disabled={algo === ''}
-      />
-      <Buttons
-        clickHandler={stepForward}
-        title={<i className="arrow right"></i>}
-      />
+        <Buttons
+          clickHandler={playOrPauseHandler}
+          title={playOrPause(animations, stepPosition, steps)}
+          item={algo}
+          disabled={algo === ''}
+        />
+        <Buttons
+          clickHandler={stepForward}
+          title={<i className="fa fa-chevron-right"></i>}
+        />
+      </div>
       <Bars arr={steps[stepPosition]} colorStep={colors[stepPosition]} />
     </div>
   );
