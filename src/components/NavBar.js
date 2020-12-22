@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
-import DropDown from './DropDown';
 import Radio from './Radio';
 
 const options = [
@@ -21,33 +20,41 @@ const NavBar = ({
   const [selectedOption, setSelectedOption] = useState(null);
 
   const selectOnChange = (selectedOption) => {
-    console.log(selectedOption);
     setSelectedOption(selectedOption);
     dropDownSelect(selectedOption.value);
   };
 
   const customStyles = {
+    placeholder: (defaultStyles) => {
+      return {
+        ...defaultStyles,
+        color: 'white',
+      };
+    },
     option: (provided, state) => ({
       ...provided,
-      borderBottom: '2px solid whitesmoke',
-      color: state.isSelected ? 'red' : 'black',
+      borderBottom: '1px solid black',
+      color: state.isSelected ? 'black' : 'whitesmoke',
       padding: 20,
-      backgroundColor: 'whitesmoke',
+      backgroundColor: state.isSelected ? 'whitesmoke' : 'black',
       fontSize: 15,
     }),
     control: (provided) => ({
-      width: 150,
-      background: 'whitesmoke',
+      ...provided,
+      width: 155,
+      background: 'black',
+      border: '1px solid whitesmoke',
       borderRadius: 3,
-      color: 'black',
+      color: 'white',
       height: 30,
       fontSize: 15,
     }),
     singleValue: (provided, state) => {
+      const color = 'white';
       const opacity = 1;
       const transition = 'opacity 300ms';
 
-      return { ...provided, opacity, transition };
+      return { ...provided, opacity, transition, color };
     },
   };
 

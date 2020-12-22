@@ -53,4 +53,4 @@ const createSteps = (result, position, steps) => {
   steps.push(step);
 };
 
-export { mergeSort };
+export default mergeSort;

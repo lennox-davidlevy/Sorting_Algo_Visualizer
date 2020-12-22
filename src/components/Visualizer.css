@@ -1,22 +1,7 @@
-/* input,
-label {
-  display: block;
-} */
 body {
   background-color: black;
   font-family: 'Roboto Mono', monospace;
-}
-h1,
-h2,
-h3 {
-  color: whitesmoke;
-}
-label {
-  color: whitesmoke;
-}
-li {
   font-weight: 900;
-  font-size: 16px;
 }
 
 /* BARS */
@@ -56,7 +41,7 @@ li {
   border-radius: 5px;
   background: #d3d3d3;
   outline: none;
-  opacity: 0.7;
+  opacity: 0.8;
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
 }
@@ -98,47 +83,11 @@ li {
   min-width: 30px;
 }
 
-/* FOR LATER */
-/* .num-hide {
-  visibility: hidden;
-  color: lightblue;
-  transition: opacity 0.2s, visibility 0.2s;
-  z-index: 2;
-}
-.bar-number:hover .num-hide {
-  visibility: visible;
-} */
-
 /* BUTTONS */
 
 .controls-container {
   text-align: center;
 }
-
-/* .myButton {
-  box-shadow: inset 0px 1px 0px 0px #ffffff;
-  background: linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
-  background-color: #f9f9f9;
-  border-radius: 6px;
-  border: 1px solid #dcdcdc;
-  display: inline-block;
-  cursor: pointer;
-  color: #666666;
-  font-family: Arial;
-  font-size: 15px;
-  font-weight: bold;
-  padding: 6px 24px;
-  text-decoration: none;
-  text-shadow: 0px 1px 0px #ffffff;
-}
-.myButton:hover {
-  background: linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
-  background-color: #e9e9e9;
-}
-.myButton:active {
-  position: relative;
-  top: 1px;
-} */
 
 .myButton {
   background-color: black;
@@ -156,25 +105,6 @@ li {
 }
 .myButton:hover .arrow {
   border: solid black;
-}
-
-/* ARROW BUTTONS */
-
-.arrow {
-  border: solid whitesmoke;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-}
-
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-
-.left {
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
 }
 
 /* navbar */

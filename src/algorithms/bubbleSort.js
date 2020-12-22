@@ -28,4 +28,4 @@ const swap = (arr, a, b) => {
   return arr;
 };
 
-export { bubbleSort };
+export default bubbleSort;
