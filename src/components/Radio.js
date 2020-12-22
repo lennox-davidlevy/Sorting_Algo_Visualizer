@@ -15,7 +15,7 @@ const Radio = ({ clickHandler, speed }) => {
               type="radio"
               name="animationSpeed"
               value={item}
-              checked={item == speed}
+              checked={item === speed}
               onChange={clickHandler}
               key={key}
             />
