@@ -30,7 +30,7 @@ const NavBar = ({
     option: (provided, state) => ({
       ...provided,
       borderBottom: '2px solid whitesmoke',
-      color: state.isSelected ? 'black' : 'black',
+      color: state.isSelected ? 'red' : 'black',
       padding: 20,
       backgroundColor: 'whitesmoke',
       fontSize: 15,

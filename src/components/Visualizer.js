@@ -103,10 +103,6 @@ const Visualizer = () => {
     setArr(arr);
     setStepPosition(0);
     setSelectAlgo(['Selection Sort', 'Bubble Sort', 'Merge Sort']);
-    // setAlgo('');
-    // setSpeed('medium');
-    // const selector = document.getElementById('selector');
-    // selector.value = '';
   };
 
   const selectionSortAnimation = () => {
@@ -160,26 +156,11 @@ const Visualizer = () => {
         numberOfBars={numberOfBars}
         algo={algo}
       />
-      {/* <DropDown clickHandler={dropDownSelect} arr={selectAlgo} />
-      <Radio clickHandler={radioSelect} speed={speed} />
-
-      <label>
-        <input
-          id="bar-range"
-          type="range"
-          min="10"
-          max="50"
-          value={numberOfBars}
-          step="10"
-          onChange={(e) => changeNumberOfBars(e)}
-        />
-        Bars: {numberOfBars}
-      </label> */}
       <div className="controls-container">
         <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />
         <Buttons
           clickHandler={stepBack}
-          title={<i className="arrow left"></i>}
+          title={<i className="fa fa-chevron-left"></i>}
         />
         <Buttons
           clickHandler={playOrPauseHandler}
@@ -189,7 +170,7 @@ const Visualizer = () => {
         />
         <Buttons
           clickHandler={stepForward}
-          title={<i className="arrow right"></i>}
+          title={<i className="fa fa-chevron-right"></i>}
         />
       </div>
       <Bars arr={steps[stepPosition]} colorStep={colors[stepPosition]} />

@@ -8,15 +8,16 @@ const obj = {
 const Radio = ({ clickHandler, speed }) => {
   return (
     <div className="radio-container">
-      {arr.map((item) => {
+      {arr.map((item, key) => {
         return (
-          <label className="radio">
+          <label key={key} className="radio">
             <input
               type="radio"
               name="animationSpeed"
               value={item}
               checked={item == speed}
               onChange={clickHandler}
+              key={key}
             />
             {obj[item]}
           </label>
