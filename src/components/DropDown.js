@@ -1,17 +1,21 @@
 import React from 'react';
+import Select from 'react-select';
 
 const DropDown = ({ arr, clickHandler, algo }) => {
   if (!arr) return null;
   return (
-    <ul className="subnavigation">
-      {arr.map((item, key) => {
-        return (
-          <li className="link" id={item}>
-            {item}
-          </li>
-        );
-      })}
-    </ul>
+    <div className="dropdown-container">
+      {/* <ul className="subnavigation">
+        {arr.map((item, key) => {
+          return (
+            <li className="link" id={item}>
+              {item}
+            </li>
+          );
+        })}
+      </ul> */}
+      GHELLO
+    </div>
   );
 };
 

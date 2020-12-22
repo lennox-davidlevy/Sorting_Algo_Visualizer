@@ -11,7 +11,6 @@ const Radio = ({ clickHandler, speed }) => {
       {arr.map((item) => {
         return (
           <label className="radio">
-            {obj[item]}
             <input
               type="radio"
               name="animationSpeed"
@@ -19,6 +18,7 @@ const Radio = ({ clickHandler, speed }) => {
               checked={item == speed}
               onChange={clickHandler}
             />
+            {obj[item]}
           </label>
         );
       })}

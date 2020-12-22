@@ -54,12 +54,12 @@ const Visualizer = () => {
     setNumberOfBars(e.target.value);
   };
 
-  const dropDownSelect = (e) => {
+  const dropDownSelect = (selectedOptionValue) => {
     // console.log(e.target);
     stepSet();
     colorSet();
     setStepPosition(0);
-    setAlgo(e.target.value);
+    setAlgo(selectedOptionValue);
   };
 
   const radioSelect = (e) => {
