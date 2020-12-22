@@ -3,6 +3,12 @@ import Bar from './Bar';
 
 export default function Bars({ arr, colorStep }) {
   if (!arr) return null;
+
+  //customize color of bars during sorting
+  //0 - initial
+  //1 - check
+  //2 - sorted position
+  //3 - final flourish
   const colorIdx = {
     0: 'whitesmoke',
     1: 'red',

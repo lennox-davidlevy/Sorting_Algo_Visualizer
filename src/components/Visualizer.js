@@ -5,13 +5,11 @@ import {
   sortingSpeed,
   animationChoice,
 } from '../helpers';
-import { bubbleSort } from './bubbleSort';
-import { mergeSort } from './mergeSort';
-import selectionSort from './selectionSort';
+import bubbleSort from '../algorithms/bubbleSort';
+import mergeSort from '../algorithms/mergeSort';
+import selectionSort from '../algorithms/selectionSort';
 import Buttons from './Buttons';
 import Bars from './Bars';
-import DropDown from './DropDown';
-import Radio from './Radio';
 import Navbar from './NavBar';
 import './Visualizer.css';
 
@@ -55,7 +53,6 @@ const Visualizer = () => {
   };
 
   const dropDownSelect = (selectedOptionValue) => {
-    // console.log(e.target);
     stepSet();
     colorSet();
     setStepPosition(0);
@@ -133,7 +130,6 @@ const Visualizer = () => {
       setupAnimation(algo);
     }
     const animationSpeed = sortingSpeed[algo][speed] || 30;
-    console.log(`animationSpeed: ${animationSpeed}`);
     clear();
     const arr = [];
     for (let i = 0; i < steps.length - stepPosition - 1; i++) {

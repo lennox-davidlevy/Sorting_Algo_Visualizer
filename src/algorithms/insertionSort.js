@@ -1,3 +1,5 @@
+//for later
+
 const insertionSort = (array, steps, colors) => {
   let arr = array.slice();
   const len = arr.length;
