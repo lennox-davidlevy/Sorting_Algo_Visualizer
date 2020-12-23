@@ -37,13 +37,19 @@ const sortingSpeed = {
     medium: 20,
     fast: 10,
   },
+  'Insertion Sort': {
+    slow: 60,
+    medium: 50,
+    fast: 20,
+  },
 };
 
 const animationChoice = (
   algorithm,
   bubbleSortAnimation,
   mergeSortAnimation,
-  selectionSortAnimation
+  selectionSortAnimation,
+  insertionSortAnimation
 ) => {
   switch (algorithm) {
     case 'Bubble Sort':
@@ -54,6 +60,9 @@ const animationChoice = (
       break;
     case 'Selection Sort':
       selectionSortAnimation();
+      break;
+    case 'Insertion Sort':
+      insertionSortAnimation();
       break;
     default:
       return;

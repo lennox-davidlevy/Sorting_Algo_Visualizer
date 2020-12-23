@@ -2,12 +2,6 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import Radio from './Radio';
 
-const options = [
-  { value: 'Selection Sort', label: 'Selection Sort' },
-  { value: 'Bubble Sort', label: 'Bubble Sort' },
-  { value: 'Merge Sort', label: 'Merge Sort' },
-];
-
 const NavBar = ({
   dropDownSelect,
   selectAlgo,
@@ -15,10 +9,11 @@ const NavBar = ({
   speed,
   changeNumberOfBars,
   numberOfBars,
-  algo,
 }) => {
   const [selectedOption, setSelectedOption] = useState(null);
-
+  const options = selectAlgo.map((item) => {
+    return { value: item, label: item };
+  });
   const selectOnChange = (selectedOption) => {
     setSelectedOption(selectedOption);
     dropDownSelect(selectedOption.value);

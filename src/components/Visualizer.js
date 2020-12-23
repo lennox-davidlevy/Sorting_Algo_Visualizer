@@ -8,6 +8,7 @@ import {
 import bubbleSort from '../algorithms/bubbleSort';
 import mergeSort from '../algorithms/mergeSort';
 import selectionSort from '../algorithms/selectionSort';
+import insertionSort from '../algorithms/insertionSort';
 import Buttons from './Buttons';
 import Bars from './Bars';
 import Navbar from './NavBar';
@@ -69,7 +70,8 @@ const Visualizer = () => {
       algorithm,
       bubbleSortAnimation,
       mergeSortAnimation,
-      selectionSortAnimation
+      selectionSortAnimation,
+      insertionSortAnimation
     );
   };
 
@@ -99,13 +101,24 @@ const Visualizer = () => {
     const arr = createArray(n);
     setArr(arr);
     setStepPosition(0);
-    setSelectAlgo(['Selection Sort', 'Bubble Sort', 'Merge Sort']);
+    setSelectAlgo([
+      'Selection Sort',
+      'Insertion Sort',
+      'Bubble Sort',
+      'Merge Sort',
+    ]);
   };
 
   const selectionSortAnimation = () => {
     clear();
     let a = [...arr];
     selectionSort(a, steps, colors);
+  };
+
+  const insertionSortAnimation = () => {
+    clear();
+    let a = [...arr];
+    insertionSort(a, steps, colors);
   };
 
   const bubbleSortAnimation = () => {
@@ -150,7 +163,6 @@ const Visualizer = () => {
         speed={speed}
         changeNumberOfBars={changeNumberOfBars}
         numberOfBars={numberOfBars}
-        algo={algo}
       />
       <div className="controls-container">
         <Buttons clickHandler={resetArray} title="Reset" item={numberOfBars} />

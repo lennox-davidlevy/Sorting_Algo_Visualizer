@@ -1,7 +1,13 @@
 # Sorting Visualization Application
 
-An application to demonstrate sorting algorithms visually, while (hopefully) looking pretty nice.
-You can check it out at [visual sorting](https://lennox-davidlevy.github.io/Sorting_Algo_Visualizer/)
+An application to demonstrate sorting algorithms visually, while (hopefully) looking pretty nice. Algorithms visualized:
+
+- Selection Sort
+- Insertion Sort
+- Bubble Sort
+- Merge Sort
+
+You can check it out at [Visual Sorting](https://lennox-davidlevy.github.io/Sorting_Algo_Visualizer/)
 
 ![](display_sorting.gif)
 
@@ -21,7 +27,7 @@ $ npm install
 
 I plan on adding these features soon:
 
-- Insertion Sort
+- ~~Insertion Sort~~
 - Heap Sort
 - Quick sort
 - inversion view that inverts colors with a switch

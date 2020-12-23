@@ -1,4 +1,4 @@
-let selectionSort = (array, steps, color) => {
+const selectionSort = (array, steps, color) => {
   let arr = array.slice();
   let len = arr.length;
   let colorState = color[color.length - 1].slice();
